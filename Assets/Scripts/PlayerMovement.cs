@@ -76,8 +76,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // accelerate / decelerate
         inputAxis = Input.GetAxis("Horizontal");
-        velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
-
+        //velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
+        float acceleration = grounded ? 15f : 10f; // más lento en el aire
+        float deceleration = grounded ? 20f : 5f;  // frena más rápido en suelo
+        float target = inputAxis * moveSpeed;
+        float rate = Mathf.Abs(inputAxis) > 0.1f ? acceleration : deceleration;
+        velocity.x = Mathf.MoveTowards(velocity.x, target, rate * Time.deltaTime);
         // check if running into a wall
         if (rigidbody.Raycast(Vector2.right * velocity.x)) {
             velocity.x = 0f;
@@ -98,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         jumping = velocity.y > 0f;
 
         // perform jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Vertical") && !jumping)
         {
             velocity.y = jumpForce;
             jumping = true;
@@ -108,12 +112,14 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGravity()
     {
         // check if falling
-        bool falling = velocity.y < 0f || !Input.GetButton("Jump");
+        bool falling = velocity.y < 0f || !Input.GetButton("Vertical");
         float multiplier = falling ? 2f : 1f;
 
         // apply gravity and terminal velocity
         velocity.y += gravity * multiplier * Time.deltaTime;
-        velocity.y = Mathf.Max(velocity.y, gravity / 2f);
+        //velocity.y = Mathf.Max(velocity.y, gravity / 2f);
+        // Agregar al final de ApplyGravity()
+        velocity.y = Mathf.Max(velocity.y, -20f); // velocidad máxima de caída
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
