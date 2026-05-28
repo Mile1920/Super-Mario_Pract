@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class BlockCoin : MonoBehaviour
 {
     private void Start()

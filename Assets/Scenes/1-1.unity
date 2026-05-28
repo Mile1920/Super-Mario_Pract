@@ -11244,6 +11244,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 712853453}
     m_Modifications:
+    - target: {fileID: 481021467160599379, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 481021467160599379, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 481021467160599388, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
       propertyPath: acceleration
       value: 8
@@ -11303,6 +11311,14 @@ PrefabInstance:
     - target: {fileID: 1222442145135012062, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
       propertyPath: animationSpeed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807276760029766807, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807276760029766807, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d83a5e7863a8afc4faee91819fff1fa7, type: 3}

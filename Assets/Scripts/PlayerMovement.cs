@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public bool sliding => (inputAxis > 0f && velocity.x < 0f) || (inputAxis < 0f && velocity.x > 0f);
     public bool falling => velocity.y < 0f && !grounded;
 
+    
     private void Awake()
     {
         camera = Camera.main;
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ApplyGravity();
+        velocity.y = Mathf.Max(velocity.y, -20f); // velocidad máxima de caída
     }
 
     private void FixedUpdate()
@@ -92,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
             transform.eulerAngles = Vector3.zero;
         } else if (velocity.x < 0f) {
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            //GetComponent<SpriteRenderer>().flipX = velocity.x < 0f;
         }
     }
 
@@ -106,6 +109,10 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = jumpForce;
             jumping = true;
+        }
+        // En GroundedMovement, al detectar que soltaste el salto
+        if (jumping && !Input.GetButton("Vertical") && velocity.y > 0f) {
+            velocity.y *= 0.85f; // reduce gradualmente, no en seco
         }
     }
 
