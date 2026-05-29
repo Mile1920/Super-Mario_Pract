@@ -27,12 +27,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    /*private void Start()
     {
         Application.targetFrameRate = 60;
 
         NewGame();
+    }*/
+    private void Start()
+{
+    Application.targetFrameRate = 60;
+
+    string sceneName = SceneManager.GetActiveScene().name;
+    Debug.Log($"GameManager Start - escena: {sceneName}");
+
+    if (sceneName.Contains("-"))
+    {
+        string[] parts = sceneName.Split('-');
+        if (parts.Length == 2 &&
+            int.TryParse(parts[0], out int w) &&
+            int.TryParse(parts[1], out int s))
+        {
+            world = w;
+            stage = s;
+            lives = 3;
+            coins = 0;
+            Debug.Log($"world={world}, stage={stage}");
+            return;
+        }
     }
+    NewGame();
+}
 
     public void NewGame()
     {
@@ -53,12 +77,13 @@ public class GameManager : MonoBehaviour
     {
         this.world = world;
         this.stage = stage;
-
+        Debug.Log($"Cargando escena: {world}-{stage}"); 
         SceneManager.LoadScene($"{world}-{stage}");
     }
 
     public void NextLevel()
     {
+        Debug.Log($"NextLevel: world={world}, stage={stage}");
         LoadLevel(world, stage + 1);
     }
 
